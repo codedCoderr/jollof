@@ -11,13 +11,12 @@
     "url": "git+https://github.com/Vectormike/jollof.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Vectormike/jollof/issues"
   },
   "homepage": "https://github.com/Vectormike/jollof#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   }
