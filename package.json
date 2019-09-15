@@ -1,0 +1,23 @@
+{
+  "name": "jollof-login",
+  "version": "1.0.0",
+  "description": "Login page with authentication",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vectormike/jollof.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vectormike/jollof/issues"
+  },
+  "homepage": "https://github.com/Vectormike/jollof#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
