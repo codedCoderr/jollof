@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Vectormike/jollof#readme",
   "dependencies": {
     "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
   }
 }
