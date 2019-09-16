@@ -39,7 +39,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     password_match_found = True
                     self.data['authenticated'] = True
                     self.data['user'] = {"id": user["id"], "name": user["name"], "username": user["username"],
-                                         "email": user["email"]}
+                                         "email": user["email"],"avatar":user["avatar"],"status":user["status"]}
                     self._set_headers()
                 else:
                     break
