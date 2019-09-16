@@ -1,10 +1,10 @@
 const users = require('../../../auth.json');
-exports.login = function(req, res) {
+exports.login = (req, res)=> {
   body = '';
-  req.on('data', function(chunk) {
+  req.on('data', (chunk) =>{
     body += chunk;
   });
-  req.on('end', function() {
+  req.on('end', () =>{
     body = JSON.parse(body);
     const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
