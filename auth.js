@@ -1,4 +1,4 @@
-const users = require('../../../auth.json');
+const users = require('./auth.json');
 exports.login = (req, res) => {
   body = '';
   req.on('data', chunk => {
