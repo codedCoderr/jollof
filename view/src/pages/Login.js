@@ -20,7 +20,7 @@ class Login extends Component {
 
   onPasswordChange = event => {
     this.setState({
-      email: event.target.value
+      password: event.target.value
     });
   };
 
@@ -62,7 +62,7 @@ class Login extends Component {
             <input
               type="password"
               name="password"
-              onChange={this.onPassword}
+              onChange={this.onPasswordChange}
               id="password"
               required
             />
