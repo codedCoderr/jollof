@@ -26,7 +26,7 @@ class Login extends Component {
 
   // Submit
   onSubmit = event => {
-    const { email, password } = event.target;
+    const { email, password } = this.state;
     fetch("", {
       method: "post",
       headers: { "Content-Type": "application/json" },
