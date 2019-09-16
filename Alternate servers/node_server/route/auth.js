@@ -1,3 +1,4 @@
+const users = require('../../../auth.json');
 exports.login = function(req, res) {
   body = '';
   req.on('data', function(chunk) {
@@ -5,15 +6,34 @@ exports.login = function(req, res) {
   });
   req.on('end', function() {
     body = JSON.parse(body);
-    const { username, email, password } = body;
+    const { email, password } = body;
+    res.setHeader('Content-Type', 'application/json');
     try {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ authenticated: true, user: body }));
+      if (email === '' || password === '') {
+        res.statusCode = 400;
+        res.end(
+          JSON.stringify({
+            authenticated: false,
+            error: 'Input field cannot be empty'
+          })
+        );
+      }
+      users.users.map(user => {
+        if (user.email === email && user.password === password) {
+          res.statusCode = 200;
+          res.end(JSON.stringify({ authenticated: true, user: user }));
+        }
+        res.statusCode = 401;
+        res.end(
+          JSON.stringify({
+            authenticated: false,
+            error: 'User does not exist'
+          })
+        );
+      });
     } catch (error) {
       res.statusCode = 400;
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ authenticated: false, user: null }));
+      res.end(JSON.stringify({ authenticated: false, error: error.message }));
     }
   });
 };
