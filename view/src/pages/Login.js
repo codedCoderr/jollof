@@ -26,6 +26,7 @@ class Login extends Component {
 
   // Submit
   onSubmit = event => {
+    event.preventDefault();
     const { email, password } = this.state;
     fetch("", {
       method: "post",
@@ -43,7 +44,7 @@ class Login extends Component {
     return (
       <div className="Login">
         <div className="form-con">
-          <form onSubmit={this.onSubmit} method='post'>
+          <form onSubmit={this.onSubmit} method="post">
             <h1 className="text-primary">Login</h1>
             <label htmlFor="username" className="label-brk">
               Email
