@@ -31,6 +31,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         user_found = False
         password_match_found = False
         user: dict
+
         for user in user_data["users"]:
             if user["email"] == user_details["email"]:
                 user_found = True
@@ -48,9 +49,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self._set_headers(False, 401)
 
     def do_GET(self):
-        self.data = {'authenticated': False, 'user': None}
-        self._set_headers(False,501)
-        self.data["error"] = "Unsupported Method GET"
+        if re.search('/api/auth/login*', self.path) != None:
+            self.data = {'authenticated': False, 'user': None}
+            self._set_headers(False,501)
+            self.data["error"] = "Unsupported Method GET"
+        else:
+            self.data["error"] = "Invalid Endpoints"
+
         self.wfile.write(json.dumps(self.data).encode(encoding='utf_8'))
 
     def do_POST(self):
