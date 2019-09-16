@@ -21,11 +21,11 @@ exports.login = (req, res) => {
       users.users.map(user => {
         if (user.email === email && user.password === password) {
           res.statusCode = 200;
-          const { id, name, username, email } = user;
+          const { id, name, username, email, avatar, status } = user;
           res.end(
             JSON.stringify({
               authenticated: true,
-              user: { id, name, username, email }
+              user: { id, name, username, email, avatar, status }
             })
           );
         }
