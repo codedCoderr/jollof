@@ -3,7 +3,7 @@
   "description": "Login page with authentication",
   "main": "server.js",
   "scripts": {
-    "start": "node ../alternate_servers../node_server/server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
