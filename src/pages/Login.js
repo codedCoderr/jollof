@@ -1,6 +1,6 @@
 import React from 'react'
 import './Login.css'
-import groupImg from '../assets/svg 1.svg'
+import groupImg from '../assets/23851.png'
 
 const Login = () =>{
 	return(

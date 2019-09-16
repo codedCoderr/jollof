@@ -62,11 +62,13 @@ button {
 	color: #57937a;
 }
 .img-con {
-	min-width: 700px;
 	position: absolute;
-	top: -25%;
+	top: 15%;
 	left: 40%;
 	background-color: transparent;
+}
+.img-con img{
+	width: 700px;
 }
 @media only screen and (max-width: 600px) {
 	.Login {
@@ -87,13 +89,14 @@ button {
 		padding: 25px 20px;
 	}
 	.img-con {
-		min-width: 300px;
 		position: static;
 		background-color: transparent;
-		height: 341px;
+		padding-top:20px;
 		order:1;
 	}
-
+	.img-con img{
+		width: 300px;
+	}
 }
 
 @media only screen and (min-width: 601px) and (max-width: 900px) {
@@ -105,12 +108,13 @@ button {
 		align-items: center;
 	}
 	.img-con {
-		min-width: 300px;
-		top: 10%;
+		top: 25%;
 	left: 60%;
-		/* position: static; */
-		background-color: transparent;
-		/* height: 341px;
-		order:1; */
+	}
+	.img-con img{
+		width: 300px;
+	}
+	.Login {
+		overflow-y: scroll;
 	}
 }
