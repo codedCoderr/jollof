@@ -8,10 +8,10 @@ const Login = () =>{
 			<div className="form-con">
 			<form action="">
 				<h1 className="text-primary">Login</h1>
-				<label htmlFor="username" className="label-brk">Username</label>
-				<input type="text" name="username" id="username"/>
+				<label htmlFor="username" className="label-brk">Email</label>
+				<input type="email" name="username" id="username"/>
 				<label htmlFor="password" className="label-brk">Password</label>
-				<input type="text" name="password" id="password"/>
+				<input type="password" name="password" id="password"/>
 				
 				<label htmlFor="remember" className="label-brk"><input type="checkbox" name="remember" id="remember"/>Remember Me</label>
 				<button className="btn-primary">Login</button>
