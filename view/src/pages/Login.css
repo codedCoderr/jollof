@@ -37,6 +37,7 @@ input[type="password"], input[type="email"] {
 	border-radius: 6px;
 	border: 1px solid #aeaeaf;
 	width: 200px;
+	color: black;
 }
 button {
 	text-align: center;
