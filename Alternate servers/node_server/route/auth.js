@@ -1,10 +1,10 @@
 const users = require('../../../auth.json');
-exports.login = (req, res)=> {
+exports.login = (req, res) => {
   body = '';
-  req.on('data', (chunk) =>{
+  req.on('data', chunk => {
     body += chunk;
   });
-  req.on('end', () =>{
+  req.on('end', () => {
     body = JSON.parse(body);
     const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
@@ -21,7 +21,13 @@ exports.login = (req, res)=> {
       users.users.map(user => {
         if (user.email === email && user.password === password) {
           res.statusCode = 200;
-          res.end(JSON.stringify({ authenticated: true, user: user }));
+          const { id, name, username, email } = user;
+          res.end(
+            JSON.stringify({
+              authenticated: true,
+              user: { id, name, username, email }
+            })
+          );
         }
         res.statusCode = 401;
         res.end(
