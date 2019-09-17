@@ -31,7 +31,7 @@ $user_found = false;
         $userPass   = $user['password'];
         
         if( ($userEmail === $email && $userPass === $password) ) {
-            $response[] = [
+            $response = [
                 'id'        => $user['id'],
                 'name'      => $user['name'],
                 'username'  => $user['username'],
