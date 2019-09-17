@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Welcome({ userDetails: { username, avatar, status } }) {
+export default function Welcome({ onPageChange, userDetails: { email } }) {
   return (
     <div>
-      <img src={avatar} />
-      <h3>Welcome {username}</h3>
-      <p>We know you're a {status}</p>
+      <img alt="Your ugly face" />
+      <h3>Welcome {email}</h3>
+      <p onClick={() => onPageChange('signout')}>Signout</p>
     </div>
   );
 }
