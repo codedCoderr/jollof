@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 
@@ -10,9 +11,11 @@ class App extends Component {
     super();
 
     this.state = {
+      route: "",
       user: {
         username: "",
-        avatar: "",
+        avatar:
+          "https://res.cloudinary.com/busola/image/upload/v1568640962/bee.jpg",
         status: ""
       }
     };
@@ -30,13 +33,25 @@ class App extends Component {
   };
 
   // Func to display welcome page if auth is authorized
+  onPageChange = route => {
+    if (route === "success") {
+      this.setState({ route: "success" });
+    } else if (route === "signin") {
+      this.setState({ route: "sigin" });
+    }
+  };
 
   render() {
+    const { route } = this.state;
     return (
       <div className="App">
-        {/* Will fix condition later */}
-        <Welcome userDetails={this.state.user} />
-        <Login saveUser={this.saveUser} />
+        {route === "success" ? (
+          <Welcome userDetails={this.state.user} />
+        ) : route === "signin" ? (
+          <Login onPageChange={this.onPageChange} saveUser={this.saveUser} />
+        ) : (
+          <Register />
+        )}
       </div>
     );
   }
