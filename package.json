@@ -1,4 +1,5 @@
-{ "name": "jollof-login",
+{
+  "name": "jollof-login",
   "version": "1.0.0",
   "description": "Login page with authentication",
   "main": "server.js",
