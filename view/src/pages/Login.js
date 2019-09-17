@@ -26,9 +26,10 @@ class Login extends Component {
 
   // Submit
   onSubmit = event => {
+    const { saveUser, onPageChange } = this.props;
     event.preventDefault();
     const { email, password } = this.state;
-    fetch("http://localhost:5000/auth/login", {
+    fetch("", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -37,7 +38,12 @@ class Login extends Component {
       })
     })
       .then(res => res.json())
-      .then(console.log);
+      .then(data => {
+        if (data) {
+          saveUser(data);
+          onPageChange("success");
+        }
+      });
   };
 
   render() {
