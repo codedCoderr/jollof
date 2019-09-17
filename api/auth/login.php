@@ -30,7 +30,7 @@ if( isset($_POST['email']) && isset($_POST['password'] ) )
                 'status'    => $user['status'],
             ];
             
-        }; 
+        }
     }
 
     if(count($response) === 0){
