@@ -65,3 +65,4 @@ typings/
 .xml
 venv/
 .vscode/
+.idea/
