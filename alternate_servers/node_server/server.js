@@ -7,6 +7,8 @@ const server = http.createServer((req, res) => {
 
   if (reqUrl.pathname == '/api/auth/login' && req.method === 'POST') {
     auth.login(req, res);
+  } else if (reqUrl.pathname == '/api/auth/register' && req.method === 'POST') {
+    auth.register(req, res);
   } else {
     res.end('Invalid Endpoint');
   }
