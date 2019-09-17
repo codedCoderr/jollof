@@ -13,10 +13,7 @@ class App extends Component {
     this.state = {
       route: "",
       user: {
-        username: "",
-        avatar:
-          "https://res.cloudinary.com/busola/image/upload/v1568640962/bee.jpg",
-        status: ""
+        email: ""
       }
     };
   }
@@ -25,9 +22,7 @@ class App extends Component {
   saveUser = data => {
     this.setState({
       user: {
-        username: data.username,
-        avatar: data.avatar,
-        status: data.status
+        email: data.email
       }
     });
   };
@@ -38,20 +33,25 @@ class App extends Component {
       this.setState({ route: "success" });
     } else if (route === "signin") {
       this.setState({ route: "sigin" });
+    } else if (route === "signout") {
+      this.setState({ route: "signout" });
     }
   };
 
   render() {
     const { route } = this.state;
+    // if (route === "success") {
+    //   return <Welcome />;
+    // } else if (route === "signin") {
+    //   return (
+    //     <Login onPageChange={this.onPageChange} saveUser={this.saveUser} />
+    //   );
+    // } else {
+    //   <Register />;
+    // }
     return (
       <div className="App">
-        {route === "success" ? (
-          <Welcome userDetails={this.state.user} />
-        ) : route === "signin" ? (
-          <Login onPageChange={this.onPageChange} saveUser={this.saveUser} />
-        ) : (
-          <Register />
-        )}
+        <Login onPageChange={this.onPageChange} saveUser={this.saveUser} />
       </div>
     );
   }
