@@ -71,11 +71,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     content_length = int(self.headers['Content-Length'])
                     content_type = self.headers['Content-Type']
                     request_raw = self.rfile.read(content_length).decode('utf-8') # <--- received data
+                    print(request_raw)
                     if content_length is None:
                         self.data["error"] = "Empty Request"
                         raise Exception
                     if content_type == "multipart/form-data":
-                        self.data["error"] = "Expects a application/x-www-form-urlencoded"
+                        self.data["error"] = "Expects a application/x-www-form-urlencoded or a text/plain"
                         raise Exception
                     else:
                         try:
