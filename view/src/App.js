@@ -31,18 +31,20 @@ class App extends Component {
   };
 
   onPageChange = route => {
-    if (route === "success") {
-      this.setState({ route: "success", isSignedIn: true });
-    } else if (route === "fail") {
-      this.setState({ route: "fail" });
+    if (route === "welcome") {
+      this.setState({ route: "welcome", isSignedIn: true });
+    } else if (route === "register") {
+      this.setState({ route: "register" });
+    } else if(route === "signin") {
+      this.setState({route: "signin"})
     }
   };
 
   render() {
     const { route, isSignedIn } = this.state;
-    if (route === "success") {
+    if (route === "welcome") {
       return <Welcome />;
-    } else if (route === "fail") {
+    } else if (route === "sigin") {
       return (
         <Login saveUser={this.saveUser} onPageChange={this.onPageChange} />
       );
