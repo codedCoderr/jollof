@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
 import Welcome from "./pages/Welcome";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 
 class App extends Component {
-  component() {
+  constructor() {
     super();
 
     this.state = {
