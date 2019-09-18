@@ -1,4 +1,4 @@
-const db = require('../setup/db');
+const db = require('./db');
 exports.register = (req, res) => {
   body = '';
   req.on('data', chunk => {
