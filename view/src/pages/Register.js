@@ -30,30 +30,35 @@ class Register extends Component {
     event.preventDefault();
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
-    fetch("https://teamjollof.herokuapp.com/api/auth/register", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    })
+    fetch(
+      "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/register",
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }
+    )
       .then(res => res.json())
       .then(user => {
         if (user.authenticated === true) {
           saveUser(user);
           onPageChange("welcome");
-        } else if(user.error){
-          this.setState({error: user.error})
+        } else if (user.error) {
+          this.setState({ error: user.error });
         }
       });
   };
 
   render() {
+    const { error } = this.state;
     return (
       <div>
         <div className="form-con">
           <form onSubmit={this.onSubmit} method="post">
+            <p>{error}</p>
             <h1 className="text-primary" style={{ textAlign: "center" }}>
               Get Started
             </h1>
