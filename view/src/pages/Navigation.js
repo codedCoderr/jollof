@@ -10,7 +10,7 @@ function Navigation({ isSignedIn, onPageChange }) {
   } else {
     return (
       <nav style={{ alignContent: "center" }}>
-        <button onClick={() => onPageChange("fail")}>Sign In</button>
+        <button onClick={() => onPageChange("signin")}>Sign In</button>
         <button onClick={() => onPageChange("register")}>Register</button>
       </nav>
     );
