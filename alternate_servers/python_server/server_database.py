@@ -41,11 +41,14 @@ class ServerDatabase():
         self.session = loadSession()
         self.connection = engine.connect()
 
-    def login_user(self, user: User):
-        print("running log in")
+    def check_if_user_exist(self,user:User):
         select_user = text("select * from users where email = :email and password = crypt(:password1,password)"
                            )
         registered_user = self.connection.execute(select_user, email=user.email, password1=user.password).fetchone()
+        return registered_user
+    def login_user(self, user: User):
+        print("running log in")
+        registered_user = self.check_if_user_exist(user)
         if registered_user is None:
             print("user not registered")
             return (False,None)
@@ -61,12 +64,18 @@ class ServerDatabase():
 
                 break
         if user_exist:
-            print("User already exist")
+            return (False,"User already exist")
         else:
-            add_user = text("insert into users(email,password) values(:email,crypt(:password ,gen_salt(:bf)))"
-                            )
+            try:
+                add_user = text("insert into users(email,password) values(:email,crypt(:password ,gen_salt(:bf)))"
+                                )
 
-            self.connection.execute(add_user, email=user.email, password=user.password, bf="bf")
+                self.connection.execute(add_user, email=user.email, password=user.password, bf="bf")
+                return (True,self.check_if_user_exist(user))
+            except:
+                return (False,"Server Error")
+
+
 
     def list_all_user(self):
         res = self.session.query(User).all()
