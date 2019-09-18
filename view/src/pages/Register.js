@@ -8,7 +8,8 @@ class Register extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: ""
     };
   }
 
@@ -39,10 +40,11 @@ class Register extends Component {
     })
       .then(res => res.json())
       .then(user => {
-          console.log(user)
-        if (user) {
+        if (user.authenticated === true) {
           saveUser(user);
-          onPageChange("success");
+          onPageChange("welcome");
+        } else if(user.error){
+          this.setState({error: user.error})
         }
       });
   };
