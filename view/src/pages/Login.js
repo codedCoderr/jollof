@@ -28,21 +28,25 @@ class Login extends Component {
   // Submit
   onSubmit = event => {
     event.preventDefault();
+
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
-    fetch("https://teamjollof.herokuapp.com/api/auth/login", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    })
+    fetch(
+      "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/login",
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }
+    )
       .then(res => res.json())
       .then(user => {
         if (user.authenticated === true) {
           saveUser(user);
-          onPageChange("success");
+          onPageChange("welcome");
         } else if (user.error) {
           this.setState({ error: user.error });
         }
@@ -50,11 +54,13 @@ class Login extends Component {
   };
 
   render() {
+    const {onPageChange} = this.props;
+    const { error } = this.state;
     return (
       <div className="Login">
         <div className="form-con">
-          {this.state.error}
           <form onSubmit={this.onSubmit} method="post">
+            <p style={{ color: "red" }}>{error}</p>
             <h1 className="text-primary">Login</h1>
             <label htmlFor="username" className="label-brk">
               Email
@@ -83,7 +89,7 @@ class Login extends Component {
             </label>
             <button className="btn-primary">Login</button>
             <button className="btn-transparent-default">Forgot Password</button>
-            <button className="btn-transparent-primary">
+            <button onClick={() => onPageChange('register')} className="btn-transparent-primary">
               Don't have an account?
             </button>
           </form>

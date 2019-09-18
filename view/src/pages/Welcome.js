@@ -1,9 +1,9 @@
 import React from "react";
 
-function Welcome() {
+function Welcome({email}) {
   return (
     <div>
-      <p>Welcome</p>
+      <p>Welcome {email}</p>
     </div>
   );
 }

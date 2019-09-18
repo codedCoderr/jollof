@@ -1,7 +1,7 @@
 import React from "react";
 
 function Navigation({ isSignedIn, onPageChange }) {
-  if (isSignedIn) {
+  if (isSignedIn === true) {
     return (
       <nav>
         <p onClick={() => onPageChange("signout")}>Sign Out</p>

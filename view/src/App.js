@@ -43,13 +43,13 @@ class App extends Component {
   render() {
     const { route, isSignedIn } = this.state;
     if (route === "welcome") {
-      return <Welcome />;
-    } else if (route === "sigin") {
+      return <Welcome saveUser={this.saveUser}/>;
+    } else if (route === "signin") {
       return (
         <Login saveUser={this.saveUser} onPageChange={this.onPageChange} />
       );
     } else if (route === "register") {
-      return <Register />;
+      return <Register saveUser={this.saveUser} onPageChange={this.onPageChange}/>;
     }
 
     return (
