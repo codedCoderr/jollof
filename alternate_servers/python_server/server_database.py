@@ -1,12 +1,8 @@
-import psycopg2
 import urllib.parse as up
-
-from psycopg2 import errors
 from sqlalchemy import create_engine, MetaData, Column, Integer, String, text, exc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
-from sqlalchemy.sql import expression
 
 DATABASE_URL = "postgres://cochltcv:w90CheA-A1dPIMNYqtqZ56b0xUEi3Df4@salt.db.elephantsql.com:5432/cochltcv"
 up.uses_netloc.append("postgres")
