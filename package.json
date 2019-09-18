@@ -4,10 +4,7 @@
   "description": "Login page with authentication",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js",
-    "client": "cd view && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +17,6 @@
   },
   "homepage": "https://github.com/Vectormike/jollof#readme",
   "dependencies": {
-    "concurrently": "^4.1.2",
     "cors": "^2.8.5"
   },
   "devDependencies": {
