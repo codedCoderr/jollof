@@ -8,7 +8,8 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: ""
     };
   }
 
@@ -29,7 +30,7 @@ class Login extends Component {
     event.preventDefault();
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
-    fetch("https://teamjollof.herokuapp.com//api/auth/login", {
+    fetch("https://teamjollof.herokuapp.com/api/auth/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -39,11 +40,11 @@ class Login extends Component {
     })
       .then(res => res.json())
       .then(user => {
-        if (user) {
+        if (user.authenticated === true) {
           saveUser(user);
           onPageChange("success");
         } else if (user.error) {
-          console.log(user.error)
+          this.setState({ error: user.error });
         }
       });
   };
@@ -52,6 +53,7 @@ class Login extends Component {
     return (
       <div className="Login">
         <div className="form-con">
+          {this.state.error}
           <form onSubmit={this.onSubmit} method="post">
             <h1 className="text-primary">Login</h1>
             <label htmlFor="username" className="label-brk">
