@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+
+import Navigation from "./pages/Navigation";
 import Welcome from "./pages/Welcome";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -10,6 +12,7 @@ class App extends Component {
 
     this.state = {
       route: "",
+      isSignedIn: false,
       user: {
         email: "",
         password: ""
@@ -29,22 +32,27 @@ class App extends Component {
 
   onPageChange = route => {
     if (route === "success") {
-      this.setState({ route: "success" });
+      this.setState({ route: "success", isSignedIn: true });
     } else if (route === "fail") {
       this.setState({ route: "fail" });
     }
   };
 
   render() {
-    const { route } = this.state;
+    const { route, isSignedIn } = this.state;
     if (route === "success") {
       return <Welcome />;
     } else if (route === "fail") {
+      return (
+        <Login saveUser={this.saveUser} onPageChange={this.onPageChange} />
+      );
+    } else if (route === "register") {
       return <Register />;
     }
+
     return (
       <div className="App">
-        <Login saveUser={this.saveUser} onPageChange={this.onPageChange} />
+        <Navigation isSignedIn={isSignedIn} onPageChange={this.onPageChange} />
       </div>
     );
   }
