@@ -9,6 +9,13 @@ exports.register = (req, res) => {
     body = JSON.parse(body);
     const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+      );
+
+
     try {
       let users = await db.query(`select * from users where email='${email}'`);
 
@@ -57,6 +64,12 @@ exports.login = (req, res) => {
     body = JSON.parse(body);
     const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+
     try {
       if (email === '' || password === '') {
         res.statusCode = 400;

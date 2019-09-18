@@ -9,11 +9,14 @@ const server = http.createServer((req, res) => {
     auth.login(req, res);
   } else if (reqUrl.pathname == '/api/auth/register' && req.method === 'POST') {
     auth.register(req, res);
+  } else if (reqUrl.pathname == '/' && req.method === 'GET') {
+    res.end('Welcome');
   } else {
     res.end('Invalid Endpoint');
   }
 });
-const PORT = 5000;
+
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);
