@@ -56,7 +56,7 @@ class Register extends Component {
     const { error } = this.state;
     return (
       <div>
-        <div className="form-con">
+        <div className="signup-form-con">
           <form onSubmit={this.onSubmit} method="post">
             <p>{error}</p>
             <h1 className="text-primary" style={{ textAlign: "center" }}>
