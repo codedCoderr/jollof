@@ -1,8 +1,52 @@
 import React, { Component } from "react";
 import "./Register.css";
-
+import Image from "../assets/52233.png";
 
 class Register extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
+  onEmailChange = event => {
+    this.setState({
+      email: event.target.value
+    });
+  };
+
+  onPasswordChange = event => {
+    this.setState({
+      password: event.target.value
+    });
+  };
+
+  // Submit
+  onSubmit = event => {
+    event.preventDefault();
+    const { saveUser, onPageChange } = this.props;
+    const { email, password } = this.state;
+    fetch("https://teamjollof.herokuapp.com/api/auth/register", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(user => {
+          console.log(user)
+        if (user) {
+          saveUser(user);
+          onPageChange("success");
+        }
+      });
+  };
+
   render() {
     return (
       <div>
