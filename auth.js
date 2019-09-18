@@ -1,4 +1,4 @@
-const db = require('../setup/db');
+const db = require('./db');
 exports.register = (req, res) => {
   body = '';
   req.on('data', chunk => {
@@ -7,22 +7,12 @@ exports.register = (req, res) => {
 
   req.on('end', async () => {
     body = JSON.parse(body);
-    const { _username, _fullname, _email, _avatar, _status, _password } = body;
+    const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
     try {
-      let users = await db.query(`select * from users where email='${_email}'`);
+      let users = await db.query(`select * from users where email='${email}'`);
 
-      if (_email === email) {
-        res.statusCode = 401;
-        res.end(
-          JSON.stringify({
-            authenticated: false,
-            error: 'User already exists'
-          })
-        );
-      }
       if (users.rowCount !== 0) {
-        var { email } = users.rows[0];
         res.statusCode = 401;
         res.end(
           JSON.stringify({
@@ -30,13 +20,7 @@ exports.register = (req, res) => {
             error: 'User already exists'
           })
         );
-      } else if (
-        _email === '' ||
-        _password === '' ||
-        _username === '' ||
-        _status === '' ||
-        _fullname === ''
-      ) {
+      } else if (email === '' || password === '') {
         res.statusCode = 400;
         res.end(
           JSON.stringify({
@@ -46,20 +30,14 @@ exports.register = (req, res) => {
         );
       } else {
         await db.query(
-          `insert into users (username,fullname,email,avatar,status,password)
-          values ('${_username}','${_fullname}','${_email}','${_avatar}','${_status}',crypt('${_password}',gen_salt('bf')))`
+          `insert into users (email,password)
+          values ('${email}',crypt('${password}',gen_salt('bf')))`
         );
         res.statusCode = 200;
         res.end(
           JSON.stringify({
             authenticated: true,
-            user: {
-              username: _username,
-              fullname: _fullname,
-              email: _email,
-              avatar: _avatar,
-              status: _status
-            }
+            message: 'Registration successful'
           })
         );
       }
@@ -77,10 +55,10 @@ exports.login = (req, res) => {
 
   req.on('end', async () => {
     body = JSON.parse(body);
-    const { _email, _password } = body;
+    const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
     try {
-      if (_email === '' || _password === '') {
+      if (email === '' || password === '') {
         res.statusCode = 400;
         res.end(
           JSON.stringify({
@@ -90,7 +68,7 @@ exports.login = (req, res) => {
         );
       }
       let user = await db.query(
-        `select * from users where email='${_email}' and password=crypt('${_password}',password)`
+        `select * from users where email='${email}' and password=crypt('${password}',password)`
       );
 
       if (user.rowCount === 0) {
@@ -102,18 +80,12 @@ exports.login = (req, res) => {
           })
         );
       }
-      let { id, email, username, fullname, avatar, status } = user.rows[0];
       res.statusCode = 200;
       res.end(
         JSON.stringify({
           authenticated: true,
           user: {
-            id: id,
-            username: username,
-            fullname: fullname,
-            email: email,
-            avatar: avatar,
-            status: status
+            email
           }
         })
       );
