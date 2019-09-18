@@ -27,6 +27,7 @@ class Login extends Component {
   // Submit
   onSubmit = event => {
     event.preventDefault();
+    const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
     fetch("", {
       method: "post",
@@ -37,7 +38,12 @@ class Login extends Component {
       })
     })
       .then(res => res.json())
-      .then(console.log);
+      .then(user => {
+        if (user) {
+          saveUser(user);
+          onPageChange("success");
+        }
+      });
   };
 
   render() {
