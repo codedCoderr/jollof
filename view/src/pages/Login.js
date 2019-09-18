@@ -28,7 +28,7 @@ class Login extends Component {
   onSubmit = event => {
     event.preventDefault();
     const { email, password } = this.state;
-    fetch("http://localhost:5000/auth/login", {
+    fetch("", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
