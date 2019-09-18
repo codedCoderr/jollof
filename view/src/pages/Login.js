@@ -29,7 +29,7 @@ class Login extends Component {
     event.preventDefault();
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
-    fetch("", {
+    fetch("https://teamjollof.herokuapp.com//api/auth/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -42,6 +42,8 @@ class Login extends Component {
         if (user) {
           saveUser(user);
           onPageChange("success");
+        } else if (user.error) {
+          console.log(user.error)
         }
       });
   };
