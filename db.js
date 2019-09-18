@@ -5,5 +5,6 @@ const url =
 const db = new pg.Client(url);
 db.connect(async () => {
   await db.query('SELECT * from users');
+
 });
 module.exports = db;
