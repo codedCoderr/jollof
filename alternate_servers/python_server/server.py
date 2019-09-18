@@ -31,6 +31,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         user_found = False
         password_match_found = False
         user: dict
+
         for user in user_data["users"]:
             if user["email"] == user_details["email"]:
                 user_found = True
@@ -38,7 +39,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     password_match_found = True
                     self.data['authenticated'] = True
                     self.data['user'] = {"id": user["id"], "name": user["name"], "username": user["username"],
-                                         "email": user["email"]}
+                                         "email": user["email"],"avatar":user["avatar"],"status":user["status"]}
                     self._set_headers()
                 else:
                     break
@@ -48,9 +49,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self._set_headers(False, 401)
 
     def do_GET(self):
-        self.data = {'authenticated': False, 'user': None}
-        self._set_headers(False,501)
-        self.data["error"] = "Unsupported Method GET"
+        if re.search('/api/auth/login*', self.path) != None:
+            self.data = {'authenticated': False, 'user': None}
+            self._set_headers(False,501)
+            self.data["error"] = "Unsupported Method GET"
+        else:
+            self.data["error"] = "Invalid Endpoints"
+
         self.wfile.write(json.dumps(self.data).encode(encoding='utf_8'))
 
     def do_POST(self):
@@ -66,11 +71,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
                     content_length = int(self.headers['Content-Length'])
                     content_type = self.headers['Content-Type']
                     request_raw = self.rfile.read(content_length).decode('utf-8') # <--- received data
+                    print(request_raw)
                     if content_length is None:
                         self.data["error"] = "Empty Request"
                         raise Exception
                     if content_type == "multipart/form-data":
-                        self.data["error"] = "Expects a application/x-www-form-urlencoded"
+                        self.data["error"] = "Expects a application/x-www-form-urlencoded or a text/plain"
                         raise Exception
                     else:
                         try:
