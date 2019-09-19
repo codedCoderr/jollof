@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import Navigation from "./pages/Navigation";
+import Home from "./pages/LandingPage/Home";
 import Welcome from "./pages/Welcome";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Register from "./pages/RegisterPage/Register";
+import Login from "./pages/LoginPage/Login";
 
 class App extends Component {
   constructor() {
@@ -54,7 +54,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navigation isSignedIn={isSignedIn} onPageChange={this.onPageChange} />
+        <Home isSignedIn={isSignedIn} onPageChange={this.onPageChange} />
       </div>
     );
   }

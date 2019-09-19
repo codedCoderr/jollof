@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./Login.css";
-import groupImg from "../assets/23851.png";
+import "./Register.css";
+import Image from "../../assets/52233.png";
 
-class Login extends Component {
+class Register extends Component {
   constructor() {
     super();
 
@@ -28,11 +28,10 @@ class Login extends Component {
   // Submit
   onSubmit = event => {
     event.preventDefault();
-
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
     fetch(
-      "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/login",
+      "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/register",
       {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -54,14 +53,18 @@ class Login extends Component {
   };
 
   render() {
-    const {onPageChange} = this.props;
     const { error } = this.state;
     return (
-      <div className="Login">
-        <div className="form-con">
+      
+        <div className="signup-form-con">
           <form onSubmit={this.onSubmit} method="post">
-            <p style={{ color: "red" }}>{error}</p>
-            <h1 className="text-primary">Login</h1>
+            <p>{error}</p>
+            <h1 className="text-primary" style={{ textAlign: "center" }}>
+              Get Started
+            </h1>
+            <div style={{ textAlign: "center" }}>
+              <img src={Image} alt="" height="200px" width="200px" />
+            </div>
             <label htmlFor="username" className="label-brk">
               Email
             </label>
@@ -82,24 +85,11 @@ class Login extends Component {
               id="password"
               required
             />
-
-            <label htmlFor="remember" className="label-brk">
-              <input type="checkbox" name="remember" id="remember" />
-              Remember Me
-            </label>
-            <button className="btn-primary">Login</button>
-            <button className="btn-transparent-default">Forgot Password</button>
-            <button onClick={() => onPageChange('register')} className="btn-transparent-primary">
-              Don't have an account?
-            </button>
+            <button className="btn-primary">Sign Up</button>
           </form>
         </div>
-        <div className="img-con">
-          <img src={groupImg} alt="" />
-        </div>
-      </div>
+      
     );
   }
 }
-
-export default Login;
+export default Register;
