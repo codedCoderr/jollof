@@ -21,4 +21,10 @@ button {
 	background-color: #ffffff;
 	color:#57937a;
 	margin:0 20px;
+	border:1px solid #57937a;
+}
+.btn-white:hover{
+	background-color: #57937a;
+	color:#ffffff;
+	border:1px solid #ffffff;
 }

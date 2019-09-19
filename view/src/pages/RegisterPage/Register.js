@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Register.css";
+import "./Register.css"
 import Image from "../../assets/52233.png";
 
 class Register extends Component {
@@ -57,11 +57,18 @@ class Register extends Component {
   };
 
   render() {
-    const { error } = this.state;
+		const { error } = this.state;
+		const formstyles ={
+				position : "absolute",
+				left: "40%"
+		}
+		const constyles = {
+
+		}
     return (
       
         <div className="signup-form-con">
-          <form onSubmit={this.onSubmit} method="post">
+          <form onSubmit={this.onSubmit} method="post" style={formstyles} className="form">
             <p>{error}</p>
             <h1 className="text-primary" style={{ textAlign: "center" }}>
               Get Started
