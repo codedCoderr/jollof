@@ -9,7 +9,8 @@ class Register extends Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      isLoading:''
     };
   }
 
@@ -27,6 +28,7 @@ class Register extends Component {
 
   // Submit
   onSubmit = event => {
+    this.setState({isLoading:true})
     event.preventDefault();
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
@@ -44,9 +46,11 @@ class Register extends Component {
       .then(res => res.json())
       .then(user => {
         if (user.authenticated === true) {
+          this.setState({isLoading:false})
           saveUser(user);
           onPageChange("welcome");
         } else if (user.error) {
+          this.setState({isLoading:false})
           this.setState({ error: user.error });
         }
       });
@@ -85,7 +89,11 @@ class Register extends Component {
               id="password"
               required
             />
-            <button className="btn-primary">Sign Up</button>
+            <button className="btn-primary" disabled={this.state.isLoading}>
+              {
+                this.state.isLoading ? 'Submitting...' : 'Sign Up'
+              }
+            </button>
           </form>
         </div>
       

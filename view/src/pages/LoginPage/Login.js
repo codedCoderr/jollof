@@ -9,7 +9,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      isLoading: false
     };
   }
 
@@ -28,6 +29,7 @@ class Login extends Component {
   // Submit
   onSubmit = event => {
     event.preventDefault();
+    this.setState({isLoading:true});
 
     const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
@@ -45,9 +47,11 @@ class Login extends Component {
       .then(res => res.json())
       .then(user => {
         if (user.authenticated === true) {
+          this.setState({isLoading:false})
           saveUser(user);
           onPageChange("welcome");
         } else if (user.error) {
+          this.setState({isLoading:false})
           this.setState({ error: user.error });
         }
       });
@@ -87,7 +91,12 @@ class Login extends Component {
               <input type="checkbox" name="remember" id="remember" />
               Remember Me
             </label>
-            <button className="btn-primary">Login</button>
+            <button className="btn-primary" disabled={this.state.isLoading}>
+              {
+                this.state.isLoading ? 'Please Wait...' : 'Login'
+              }
+              
+              </button>
             <button className="btn-transparent-default">Forgot Password</button>
             <button onClick={() => onPageChange('register')} className="btn-transparent-primary">
               Don't have an account?
