@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600,700&display=swap');
 ​
-.signup-form-con {
+.signup-form-con{
 	padding: 20px 70px 50px 70px;
 	border-radius: 0 0px 90% 0;
 	background-color: #57937a;
@@ -10,9 +10,9 @@
 	width:50%;
 }
 ​
-.signup-form-con form {
-	position:absolute;
-	left:40%;
+.form{
+	position:absolute!important;
+	left:40%!important;
 	background-color: #ffffff;
 	padding: 25px 40px;
 	border-radius: 20px;
