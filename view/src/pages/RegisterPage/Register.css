@@ -47,3 +47,6 @@ button {
 	color: #ffffff;
 	background-color: #57937a;
 }
+.btn-primary:hover {
+	outline: none;
+}
