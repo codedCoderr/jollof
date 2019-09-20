@@ -4,7 +4,9 @@ import Home from "./pages/LandingPage/Home";
 import Welcome from "./pages/Welcome";
 import Register from "./pages/RegisterPage/Register";
 import Login from "./pages/LoginPage/Login";
-import { Route } from "react-router-dom";
+import NoMatchPage from "./pages/NoMatch";
+import { Route , Switch } from "react-router-dom";
+
 class App extends Component {
   // constructor() {
   //   super();
@@ -42,10 +44,13 @@ class App extends Component {
   render() {
     return (
       <div style={{ width: "100%", height: "100%" }}>
+        <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Welcome} />
+        <Route component={NoMatchPage}/>
+        </Switch>
       </div>
     );
   }

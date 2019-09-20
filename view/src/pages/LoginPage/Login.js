@@ -69,6 +69,7 @@ class Login extends Component {
       .then(user => {
         if (user.authenticated === true) {
           this.setState({isLoading:false})
+          console.log("user logged in");
           this.onPageChange("/dashboard", user);
         } else if (user.error) {
           this.setState({isLoading:false})
