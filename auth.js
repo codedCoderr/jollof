@@ -10,11 +10,10 @@ exports.register = (req, res) => {
     const { email, password } = body;
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-      );
-
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
 
     try {
       let users = await db.query(`select * from users where email='${email}'`);
@@ -44,7 +43,9 @@ exports.register = (req, res) => {
         res.end(
           JSON.stringify({
             authenticated: true,
-            message: 'Registration successful'
+            user: {
+              email
+            }
           })
         );
       }
