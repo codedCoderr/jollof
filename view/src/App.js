@@ -1,60 +1,56 @@
 import React, { Component } from "react";
 import "./App.css";
-
 import Home from "./pages/LandingPage/Home";
 import Welcome from "./pages/Welcome";
 import Register from "./pages/RegisterPage/Register";
 import Login from "./pages/LoginPage/Login";
+import NoMatchPage from "./pages/NoMatch";
+import { Route , Switch } from "react-router-dom";
 
 class App extends Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
 
-    this.state = {
-      route: "",
-      isSignedIn: false,
-      user: {
-        email: "",
-        password: ""
-      }
-    };
-  }
+  //   this.state = {
+  //     route: "",
+  //     isSignedIn: false,
+  //     user: {
+  //       email: "",
+  //       password: ""
+  //     }
+  //   };
+  // }
 
-  // Func to save user
-  saveUser = data => {
-    this.setState({
-      user: {
-        email: data.email,
-        password: data.password
-      }
-    });
-  };
+  // // Func to save user
+  // saveUser = data => {
+  //   this.setState({
+  //     user: {
+  //       email: data.email,
+  //       password: data.password
+  //     }
+  //   });
+  // };
 
-  onPageChange = route => {
-    if (route === "welcome") {
-      this.setState({ route: "welcome", isSignedIn: true });
-    } else if (route === "register") {
-      this.setState({ route: "register" });
-    } else if(route === "signin") {
-      this.setState({route: "signin"})
-    }
-  };
+  // onPageChange = route => {
+  //   if (route === "welcome") {
+  //     this.setState({ route: "welcome", isSignedIn: true });
+  //   } else if (route === "register") {
+  //     this.setState({ route: "register" });
+  //   } else if (route === "signin") {
+  //     this.setState({ route: "signin" });
+  //   }
+  // };
 
   render() {
-    const { route, isSignedIn } = this.state;
-    if (route === "welcome") {
-      return <Welcome saveUser={this.saveUser}/>;
-    } else if (route === "signin") {
-      return (
-        <Login saveUser={this.saveUser} onPageChange={this.onPageChange} />
-      );
-    } else if (route === "register") {
-      return <Register saveUser={this.saveUser} onPageChange={this.onPageChange}/>;
-    }
-
     return (
-      <div className="App">
-        <Home isSignedIn={isSignedIn} onPageChange={this.onPageChange} />
+      <div style={{ width: "100%", height: "100%" }}>
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/dashboard" component={Welcome} />
+        <Route component={NoMatchPage}/>
+        </Switch>
       </div>
     );
   }

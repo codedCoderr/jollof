@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 import groupImg from "../../assets/23851.png";
+import { Redirect } from "react-router";
 
 class Login extends Component {
   constructor() {
@@ -10,9 +11,29 @@ class Login extends Component {
       email: "",
       password: "",
       error: "",
-      isLoading: false
+      isLoading: false,
+      loggedIn: false,
+      user: null,
+      pushTo: ""
     };
   }
+
+  onPageChange = (page, user) => {
+    this.setState({
+      loggedIn: true,
+      user: user.user,
+      pushTo: page
+    });
+  };
+
+  toPage = page => {
+    // console.log(page);
+    // window.location.href =
+    //   window.location.protocol + "//" + window.location.host + page;
+    this.setState({
+      pushTo: page
+    })
+  };
 
   onEmailChange = event => {
     this.setState({
@@ -31,7 +52,7 @@ class Login extends Component {
     event.preventDefault();
     this.setState({isLoading:true});
 
-    const { saveUser, onPageChange } = this.props;
+    // const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
     fetch(
       "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/login",
@@ -48,8 +69,8 @@ class Login extends Component {
       .then(user => {
         if (user.authenticated === true) {
           this.setState({isLoading:false})
-          saveUser(user);
-          onPageChange("welcome");
+          console.log("user logged in");
+          this.onPageChange("/dashboard", user);
         } else if (user.error) {
           this.setState({isLoading:false})
           this.setState({ error: user.error });
@@ -58,9 +79,17 @@ class Login extends Component {
   };
 
   render() {
-    const {onPageChange} = this.props;
+    // const {onPageChange} = this.props;
     const { error } = this.state;
-    return (
+    return (this.state.loggedIn || this.state.pushTo !== "")|| (!this.state.loggedIn && this.state.pushTo !== "")?  (
+      <Redirect
+        push
+        to={{
+          pathname: this.state.pushTo,
+          state: { user: this.state.user }
+        }}
+      />
+    ) : (
       <div className="Login">
         <div className="form-con">
           <form onSubmit={this.onSubmit} method="post">
@@ -98,7 +127,13 @@ class Login extends Component {
               
               </button>
             <button className="btn-transparent-default">Forgot Password</button>
-            <button onClick={() => onPageChange('register')} className="btn-transparent-primary">
+            <button
+              onClick={event => {
+                event.preventDefault();
+                this.toPage("/register");
+              }}
+              className="btn-transparent-primary"
+            >
               Don't have an account?
             </button>
           </form>

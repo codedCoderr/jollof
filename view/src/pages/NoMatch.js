@@ -1,19 +1,13 @@
 import React from "react";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import welcome_background from "../assets/welcome_background.jpg";
-class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-    if (this.props.location.state != null) {
-      this.state = this.props.location.state;
-      console.log(this.state);
-    } else {
-      this.state = {
-        user: null
-      };
+class NoMatchPage extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            pushTo : "/"
+        }
     }
-  }
-
   toPage = page => {
     console.log(page);
     window.location.href =
@@ -47,16 +41,15 @@ class Welcome extends React.Component {
     borderRadius: "30px"
   };
   render() {
-    return this.state.user === null ? (
-      <Redirect to="/" />
-    ) : (
+    return (
       <div style={this.welcomeBackgroundStyle}>
         <div className="welcome_text" style={this.welcomeTextStyle}>
           <p>
-            Welcome <br /> {this.state.user.email}
+              404 ERROR <br/>
+            Welcome Stranger
           </p>
           <button onClick={() => this.toPage("")} style={this.btnSignOutStyle}>
-            Sign out
+            Visit Home
           </button>
         </div>
       </div>
@@ -64,4 +57,4 @@ class Welcome extends React.Component {
   }
 }
 
-export default Welcome;
+export default NoMatchPage;
