@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Register.css"
 import Image from "../../assets/52233.png";
-
+import { Redirect } from "react-router";
 class Register extends Component {
   constructor() {
     super();
@@ -10,9 +10,29 @@ class Register extends Component {
       email: "",
       password: "",
       error: "",
-      isLoading:''
+      isLoading:'',
+      registered: false,
+      user: null,
+      pushTo: ""
     };
   }
+  onPageChange = (page, user) => {
+    console.log(user);
+    this.setState({
+      registered: true,
+      user: user.user,
+      pushTo: page
+    });
+  };
+
+  toPage = page => {
+    // console.log(page);
+    // window.location.href =
+    //   window.location.protocol + "//" + window.location.host + page;
+    this.setState({
+      pushTo: page
+    })
+  };
 
   onEmailChange = event => {
     this.setState({
@@ -30,7 +50,7 @@ class Register extends Component {
   onSubmit = event => {
     this.setState({isLoading:true})
     event.preventDefault();
-    const { saveUser, onPageChange } = this.props;
+    // const { saveUser, onPageChange } = this.props;
     const { email, password } = this.state;
     fetch(
       "https://cors-anywhere.herokuapp.com/https://teamjollof.herokuapp.com/api/auth/register",
@@ -47,8 +67,8 @@ class Register extends Component {
       .then(user => {
         if (user.authenticated === true) {
           this.setState({isLoading:false})
-          saveUser(user);
-          onPageChange("welcome");
+          // saveUser(user);
+          this.onPageChange("/dashboard", user);
         } else if (user.error) {
           this.setState({isLoading:false})
           this.setState({ error: user.error });
@@ -65,7 +85,15 @@ class Register extends Component {
 		const constyles = {
 
 		}
-    return (
+    return (this.state.registered || this.state.pushTo !== "")|| (!this.state.registered && this.state.pushTo !== "")? (
+      <Redirect
+        push
+        to={{
+          pathname: this.state.pushTo,
+          state: { user: this.state.user }
+        }}
+      />
+    ) :(
       
         <div className="signup-form-con">
           <form onSubmit={this.onSubmit} method="post" style={formstyles} className="form">
@@ -101,6 +129,15 @@ class Register extends Component {
                 this.state.isLoading ? 'Submitting...' : 'Sign Up'
               }
             </button>
+            <button
+            onClick={event => {
+              event.preventDefault();
+              this.toPage("/login");
+            }}
+            className="btn-transparent-primary"
+          >
+            Already registered? Login
+          </button>
           </form>
         </div>
       
